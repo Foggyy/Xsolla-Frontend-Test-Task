@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css"></link>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>     
+    <div id="appvue">   
+        <h1>Xsolla Test Task</h1>     
+        <h4 class="onerow">Type project name to filter the table</h4>
+        <input type="text" v-model="searchProject" class="onerow">
+        <button @click="getJSONData">Output JSON data</button>
+        <button @click="getListOfProjects">Output list of all projects</button>
+        <button @click="getPopularityList">Popularity</button>
+        </br>
+        </br>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                        <tr v-if="allData">
+                            <th @click="sortParam='id'">Transaction ID</th>
+                            <th @click="sortParam='name'">Project name</th>
+                            <th @click="sortParam='method'">Payment method</th>
+                            <th @click="sortParam='status'">Status</th>
+                            <th>Refund reason</th>
+                        </tr>
+                        <tr v-else-if="popularityBool">
+                                <th>Payment method</th>
+                                <th>Popularity</th>
+                            </tr>
+                        <tr v-else>
+                                <th>Project ID</th>
+                                <th>Project name</th>
+                            </tr>
+                    </thead>                    
+                </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody v-if="searchProject == '' && allData">
+                <tr v-for="element in sortedList">
+                    <td>{{ element.transaction.id }}</td>
+                    <td>{{ element.transaction.project.name }}</td>
+                    <td>{{ element.transaction.payment_method.name }}</td>
+                    <td>{{ element.transaction.status }}</td>
+                    <td v-if="element.transaction.refund_reason != null">{{ element.transaction.refund_reason }}</td>   
+                    <td v-else>Absence</td>                         <!-- Вывод значения "Отсутствует" если причина возврата == null -->
+                </tbody>
+                <tbody v-else-if="allData">
+                    <tr v-for="element in filteredList">
+                        <td>{{ element.transaction.id }}</td>
+                        <td>{{ element.transaction.project.name }}</td>
+                        <td>{{ element.transaction.payment_method.name }}</td>
+                        <td>{{ element.transaction.status }}</td>
+                        <td v-if="element.transaction.refund_reason != null">{{ element.transaction.refund_reason }}</td>   
+                        <td v-else>Absence</td>                         <!-- Вывод значения "Отсутствует" если причина возврата == null -->
+                    </tbody>
+                <tbody v-else-if="popularityBool">
+                    <tr v-for="element in popularityList">
+                        <td>{{ element.payment_method }}</td>
+                        <td>{{ element.popularity }}</td>
+                    </tbody>
+                <tbody v-else>
+                    <tr v-for="element in projectsList">
+                        <td>{{ element.id }}</td>
+                        <td>{{ element.name }}</td>
+                    </tbody>
+            </table>
+        </div>
+        <div class="madeIt">
+                Made by Saveliy Ugrinchuk
+              </div>
+    </div>
+
+    <script src="vueJS.js" text="text/javascript"></script> 
+</body>
+</html>
