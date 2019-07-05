@@ -1,5 +1,5 @@
 # Xsolla-Frontend-Test-Task
-##Реализация тестового задания для направления frontend для Xsolla Summer School 2019 
+Реализация тестового задания для направления frontend для Xsolla Summer School 2019 
 
 ## Стек: 
 - HTML/CSS
