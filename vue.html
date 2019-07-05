@@ -27,11 +27,11 @@
                             <th @click="sortParam='status'">Status</th>
                             <th>Refund reason</th>
                         </tr>
-                        <tr v-else-if="popularityBool">
+                        <tr v-else-if="popularityBool">             <!-- Если выбран список популярности -->
                                 <th>Payment method</th>
                                 <th>Popularity</th>
                             </tr>
-                        <tr v-else>
+                        <tr v-else>                                 <!-- Если выбран список всех проектов -->
                                 <th>Project ID</th>
                                 <th>Project name</th>
                             </tr>
@@ -58,13 +58,13 @@
                         <td v-if="element.transaction.refund_reason != null">{{ element.transaction.refund_reason }}</td>   
                         <td v-else>Absence</td>                         <!-- Вывод значения "Отсутствует" если причина возврата == null -->
                     </tbody>
-                <tbody v-else-if="popularityBool">
+                <tbody v-else-if="popularityBool">                      <!-- Если выбран список популярности -->
                     <tr v-for="element in popularityList">
                         <td>{{ element.payment_method }}</td>
                         <td>{{ element.popularity }}</td>
                     </tbody>
-                <tbody v-else>
-                    <tr v-for="element in projectsList">
+                <tbody v-else>                                          <!-- Если выбран список популярности -->
+                    <tr v-for="element in projectsList">                
                         <td>{{ element.id }}</td>
                         <td>{{ element.name }}</td>
                     </tbody>
